@@ -1,0 +1,578 @@
+html_content = """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Funciona a Fibra Óptica: Guia Completo</title>
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.4);
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0284c7 0%, #0f172a 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            pointer-events: none;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+
+        .tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            backdrop-filter: blur(4px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        nav.toc {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        nav.toc h2 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        nav.toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
+        }
+
+        nav.toc a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav.toc a:hover {
+            color: var(--accent);
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        h2.section-title {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .svg-container {
+            background: #020617;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .formula-box {
+            background: #020617;
+            border-left: 4px solid var(--accent);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.15rem;
+        }
+
+        .math {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+        }
+
+        th {
+            background: #0f172a;
+            color: var(--accent);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:not(:last-child) td {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            background: #020617;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+
+        .flow-step {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .flow-step h4 {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .flow-step p {
+            font-size: 0.85rem;
+            margin: 0;
+            color: var(--text-muted);
+        }
+
+        .flow-arrow {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #020617;
+            border-top: 1px solid var(--border-color);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); margin: 0.5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Como Funciona a Fibra Óptica</h1>
+            <p class="subtitle">A ciência e a tecnologia por trás da transmissão de dados na velocidade da luz</p>
+            <div class="tags">
+                <span class="tag">💡 Física Óptica</span>
+                <span class="tag">🌐 Telecomunicações</span>
+                <span class="tag">⚡ Alta Velocidade</span>
+                <span class="tag">📡 Redes de Dados</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <nav class="toc">
+            <h2>Conteúdo do Artigo</h2>
+            <ul>
+                <li><a href="#introducao">1. O que é a Fibra Óptica?</a></li>
+                <li><a href="#principio-fisico">2. O Princípio Físico (Reflexão Total)</a></li>
+                <li><a href="#estrutura">3. Estrutura Interna do Cabo</a></li>
+                <li><a href="#tipos">4. Fibra Monomodo vs. Multimodo</a></li>
+                <li><a href="#sistema">5. Como Funciona a Transmissão</a></li>
+                <li><a href="#vantagens">6. Vantagens e Limitações</a></li>
+            </ul>
+        </nav>
+
+        <section id="introducao">
+            <h2 class="section-title">1. O que é a Fibra Óptica?</h2>
+            <p>
+                A <strong>fibra óptica</strong> é um filamento flexível e transparente feito de vidro (sílica pura) ou plástico extrudado, com diâmetro ligeiramente mais espesso que um fio de cabelo humano. Sua função principal é guiar feixes de luz ao longo de sua extensão para transmitir dados digitais em altíssima velocidade.
+            </p>
+            <p>
+                Diferente dos cabos tradicionais de metal (como o cobre), que transmitem dados por meio de impulsos elétricos sujeitos a interferências e perdas por resistência mecânica, a fibra óptica transmite informação na forma de <strong>pulsos de luz infravermelha ou visível</strong>, permitindo conexões com largura de banda massiva e latência extremamente baixa.
+            </p>
+        </section>
+
+        <section id="principio-fisico">
+            <h2 class="section-title">2. O Princípio Físico: Reflexão Total Interna</h2>
+            <p>
+                A mágica da fibra óptica baseia-se em um fenômeno da física da luz chamado <strong>Reflexão Total Interna</strong>. Quando a luz viaja por um meio denso e atinge a fronteira de um meio menos denso sob um determinado ângulo, ela não atravessa para o outro lado; em vez disso, é totalmente refletida de volta para o meio de origem.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Índice de Refração (<span class="math">n</span>)</h3>
+                    <p>Mede o quanto a luz diminui de velocidade em um meio. Calculado por <span class="math">n = c / v</span>. O núcleo da fibra possui um índice de refração maior (<span class="math">n₁</span>) do que a casca (<span class="math">n₂</span>).</p>
+                </div>
+                <div class="card">
+                    <h3>Lei de Snell-Descartes</h3>
+                    <p>Relaciona os ângulos de incidência e refração: <br><span class="math">n₁ · sin(θ₁) = n₂ · sin(θ₂)</span>. É a fórmula que rege o comportamento da luz nas fronteiras dos materiais.</p>
+                </div>
+                <div class="card">
+                    <h3>Ângulo Crítico (<span class="math">θ_c</span>)</h3>
+                    <p>O ângulo mínimo de incidência para que ocorra a reflexão total: <br><span class="math">θ_c = arcsin(n₂ / n₁)</span>. Qualquer raio que atinja a casca acima desse ângulo fica "preso" no núcleo.</p>
+                </div>
+            </div>
+
+            <div class="svg-container">
+                <svg viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="20" width="700" height="40" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="60" y="45" fill="#94a3b8" font-size="14" font-weight="bold">CASCA SUPERIOR (n₂ - menor índice)</text>
+
+                    <rect x="50" y="60" width="700" height="120" fill="#0369a1" fill-opacity="0.3" stroke="#0284c7" stroke-width="2"/>
+                    <text x="60" y="125" fill="#38bdf8" font-size="16" font-weight="bold">NÚCLEO DE VIDRO (n₁ - maior índice)</text>
+
+                    <rect x="50" y="180" width="700" height="40" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="60" y="205" fill="#94a3b8" font-size="14" font-weight="bold">CASCA INFERIOR (n₂ - menor índice)</text>
+
+                    <path d="M 50 120 L 200 60 L 350 180 L 500 60 L 650 180 L 750 120" 
+                          fill="none" stroke="#06b6d4" stroke-width="4" stroke-dasharray="8 4" id="light-path"/>
+                    
+                    <path d="M 50 120 L 200 60 L 350 180 L 500 60 L 650 180 L 750 120" 
+                          fill="none" stroke="#67e8f9" stroke-width="2"/>
+
+                    <circle cx="200" cy="60" r="5" fill="#f59e0b"/>
+                    <circle cx="350" cy="180" r="5" fill="#f59e0b"/>
+                    <circle cx="500" cy="60" r="5" fill="#f59e0b"/>
+                    <circle cx="650" cy="180" r="5" fill="#f59e0b"/>
+
+                    <text x="210" y="80" fill="#f59e0b" font-size="12">Reflexão Total</text>
+                    <text x="360" y="170" fill="#f59e0b" font-size="12">Reflexão Total</text>
+                </svg>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem;">
+                    Ilustração da luz rebatendo continuamente nas paredes internas do núcleo devido à diferença do índice de refração (<span class="math">n₁ > n₂</span>).
+                </p>
+            </div>
+        </section>
+
+        <section id="estrutura">
+            <h2 class="section-title">3. Estrutura Anatomica de um Cabo</h2>
+            <p>
+                Para garantir a integridade do feixe luminoso e proteger o delicado núcleo de vidro contra umidade, tensões mecânicas e dobras acentuadas, um cabo de fibra óptica é composto por múltiplas camadas protetoras:
+            </p>
+
+            <div class="svg-container">
+                <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="40" width="160" height="200" rx="10" fill="#f59e0b" fill-opacity="0.8" stroke="#d97706" stroke-width="2"/>
+                    <text x="130" y="145" fill="#000" font-size="13" font-weight="bold" text-anchor="middle">1. Capa Externa (Jacket)</text>
+
+                    <rect x="210" y="60" width="140" height="160" rx="8" fill="#475569" stroke="#64748b" stroke-width="2"/>
+                    <text x="280" y="145" fill="#fff" font-size="13" font-weight="bold" text-anchor="middle">2. Kevlar (Proteção)</text>
+
+                    <rect x="350" y="80" width="130" height="120" rx="6" fill="#0f766e" stroke="#14b8a6" stroke-width="2"/>
+                    <text x="415" y="145" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">3. Revestimento</text>
+
+                    <rect x="480" y="100" width="120" height="80" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <text x="540" y="145" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">4. Casca (Cladding)</text>
+
+                    <rect x="600" y="120" width="130" height="40" rx="2" fill="#0284c7" stroke="#06b6d4" stroke-width="2"/>
+                    <text x="665" y="145" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">5. Núcleo (Core)</text>
+                </svg>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>1. Núcleo (Core)</h3>
+                    <p>O centro ultra-puro de vidro onde a luz se propaga. Mede entre 8 a 62.5 micrómetros (µm).</p>
+                </div>
+                <div class="card">
+                    <h3>2. Casca (Cladding)</h3>
+                    <p>Envolve o núcleo e possui índice de refração menor, mantendo a luz confinada ao núcleo.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Revestimento (Buffer Coating)</h3>
+                    <p>Camada plástica (geralmente acrilato) que protege o vidro contra umidade e arranhões.</p>
+                </div>
+                <div class="card">
+                    <h3>4. Fibras de Fortalecimento</h3>
+                    <p>Fios de aramida (Kevlar) que absorvem tensões de tração mecânica no manuseio do cabo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tipos">
+            <h2 class="section-title">4. Fibra Monomodo vs. Multimodo</h2>
+            <p>
+                Existem duas categorias principais de fibras ópticas, classificadas conforme o número de caminhos (modos) que a luz pode percorrer em seu interior:
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Fibra Monomodo (SMF)</th>
+                        <th>Fibra Multimodo (MMF)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Diâmetro do Núcleo</strong></td>
+                        <td>8 a 10 µm (Extremamente fino)</td>
+                        <td>50 a 62.5 µm (Mais amplo)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fonte de Luz</strong></td>
+                        <td>Laser Injeção (Diodos Laser)</td>
+                        <td>LEDs ou VCSELs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trajeto da Luz</strong></td>
+                        <td>Único caminho reto (Sem dispersão modal)</td>
+                        <td>Múltiplos caminhos/ângulos de reflexão</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alcance Máximo</strong></td>
+                        <td><span class="badge-success">Até 100+ km</span> (Longa distância)</td>
+                        <td><span class="badge-warning">Até 2 km</span> (Curtas distâncias)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aplicações Principais</strong></td>
+                        <td>Backbones de telecom, cabos submarinos, FTTH</td>
+                        <td>Data centers, redes locais (LAN), servidores</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sistema">
+            <h2 class="section-title">5. Arquitetura de um Sistema de Transmissão Óptica</h2>
+            <p>
+                Para enviar dados através de uma rede óptica, um sistema completo depende da conversão entre sinais elétricos e ópticos nas pontas da conexão:
+            </p>
+
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h4>1. Transmissor</h4>
+                    <p>Converte dados elétricos em pulsos de luz usando Laser ou LED.</p>
+                </div>
+                <div class="flow-arrow">➔</div>
+                <div class="flow-step">
+                    <h4>2. Cabo de Fibra</h4>
+                    <p>Guia os fótons pela fibra via reflexão total com perda mínima.</p>
+                </div>
+                <div class="flow-arrow">➔</div>
+                <div class="flow-step">
+                    <h4>3. Amplificador</h4>
+                    <p>Regenera o sinal em longas distâncias sem converter em eletricidade.</p>
+                </div>
+                <div class="flow-arrow">➔</div>
+                <div class="flow-step">
+                    <h4>4. Receptor</h4>
+                    <p>Fotodetector (PIN/APD) converte luz de volta em bits eletrônicos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="vantagens">
+            <h2 class="section-title">6. Vantagens e Limitações da Fibra Óptica</h2>
+            
+            <div class="card-grid">
+                <div class="card" style="border-top: 4px solid var(--success);">
+                    <h3 style="color: var(--success);">⚡ Vantagens Principais</h3>
+                    <ul style="list-style-position: inside; color: #cbd5e1; font-size: 0.95rem;">
+                        <li><strong>Banda Gigantesca:</strong> Transmissão na ordem de Terabits por segundo (Tbps).</li>
+                        <li><strong>Imunidade Eletromagnética:</strong> Não sofre interferências de redes elétricas ou raios.</li>
+                        <li><strong>Baixa Atenuação:</strong> O sinal viaja quilômetros sem perder força significativa.</li>
+                        <li><strong>Segurança:</strong> Difícil de interceptar sem romper o feixe físico.</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-top: 4px solid var(--warning);">
+                    <h3 style="color: var(--warning);">⚠️ Desafios & Limitações</h3>
+                    <ul style="list-style-position: inside; color: #cbd5e1; font-size: 0.95rem;">
+                        <li><strong>Custo de Instalação:</strong> Requer equipamentos de fusão e conectores de altíssima precisão.</li>
+                        <li><strong>Fragilidade ao Dobrar:</strong> Curvaturas acentuadas causam vazamento de luz (perda de curvatura).</li>
+                        <li><strong>Infraestrutura Ativa:</strong> Transceptores e equipamentos ópticos são mais dispendiosos.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Documento Educativo: O Funcionamento da Fibra Óptica • Gerado em HTML5 & CSS3 Responsivo</p>
+    </footer>
+
+</body>
+</html>
+"""
+
+filename = "funcionamento_fibra_otica.html"
+with open(filename, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"Arquivo gerado com sucesso: {filename}")''
